@@ -1,18 +1,14 @@
 #!/bin/bash -x
-isPresent=2;
+isFullTime=1;
 empRatePerHr=20;
-isPartTime=1;
-randomCheck=$((RANDOM %3));
-if [ $isPresent -eq $randomCheck ]; then
-        echo "Employee present";
-        empHrs=8;
-        wage=$(($empRatePerHr*$empHrs));
-elif [ $isPartTime -eq $randomCheck ]; then
-        echo "Employee Part Time";
-        empHrs=4;
-        wage=$(($empRatePerHr*$empHrs));
-else
-        echo "Employee absent";
-        wage=0;
-fi
-echo "Salary=$wage";
+isPartTime=2;
+empCheck=$((RANDOM %3));
+case $empCheck in
+        $isFullTime)
+                empHrs=8;;
+        $isPartTime)
+                empHrs=4;;
+        *)
+                empHrs=0;;
+esac
+Salary=$(($empRatePerHr*$empHrs));
