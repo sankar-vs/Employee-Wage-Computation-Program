@@ -7,6 +7,10 @@ maxHrs=100
 day=0
 Hrs=0
 
+function salaryPerDay() {
+        echo $(($empRatePerHr*$1))
+}
+
 function wrkHrs() {
         case $1 in
                 $isFullTime)
@@ -23,9 +27,12 @@ while [[ $day -le $workingDays && $Hrs -le $maxHrs ]]
 do
         empCheck=$((RANDOM %3))
         empHrs="$( wrkHrs $(($empCheck)) )"
-        day=$(($day+1))
         Hrs=$(($Hrs+$empHrs))
-        salary=$(($empRatePerHr*$empHrs))
+        salary="$( salaryPerDay $(($empHrs)) )"
         totalSalary=$(($totalSalary+$salary))
+        dailyWage[$day]=$(($salary))
+        day=$(($day+1))
 done
+
 echo $totalSalary
+echo ${dailyWage[@]}
