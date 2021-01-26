@@ -3,7 +3,10 @@ isFullTime=1
 empRatePerHr=20
 isPartTime=2
 workingDays=20
-for (( day=1 ; day<=$workingDays ; day++))
+maxHrs=100
+day=0
+Hrs=0
+while [[ $day -le $workingDays && $Hrs -le $maxHrs ]]
 do
         empCheck=$((RANDOM %3))
         case $empCheck in
@@ -14,7 +17,9 @@ do
                 *)
                         empHrs=0;;
         esac
-salary=$(($empRatePerHr*$empHrs))
-totalSalary=$(($totalSalary+$salary))
+        day=$(($day+1))
+        Hrs=$(($Hrs+$empHrs))
+        salary=$(($empRatePerHr*$empHrs))
+        totalSalary=$(($totalSalary+$salary))
 done
 echo $totalSalary
