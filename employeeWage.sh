@@ -7,6 +7,7 @@ maxHrs=100
 day=0
 Hrs=0
 
+declare -A dailyWage
 function salaryPerDay() {
         echo $(($empRatePerHr*$1))
 }
@@ -28,11 +29,11 @@ do
         empCheck=$((RANDOM %3))
         empHrs="$( wrkHrs $(($empCheck)) )"
         Hrs=$(($Hrs+$empHrs))
-        salary="$( salaryPerDay $(($empHrs)) )"
-        totalSalary=$(($totalSalary+$salary))
-        dailyWage[$day]=$(($salary))
+        totalSalary=$(( $totalSalary+$( salaryPerDay $(($empHrs)) ) ))
+        dailyWage["Day "$(($day+1))]=$( salaryPerDay $(($empHrs)) )
         day=$(($day+1))
 done
 
 echo $totalSalary
-echo ${dailyWage[@]}
+echo "Day: "${!dailyWage[@]}
+echo "Salary: "${dailyWage[@]}
