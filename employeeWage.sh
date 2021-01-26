@@ -6,17 +6,23 @@ workingDays=20
 maxHrs=100
 day=0
 Hrs=0
+
+function wrkHrs() {
+        case $1 in
+                $isFullTime)
+                        numberofWorkingHours=8;;
+                $isPartTime)
+                        numberofWorkingHours=4;;
+                *)
+                        numberofWorkingHours=0;;
+        esac
+        echo $numberofWorkingHours
+}
+
 while [[ $day -le $workingDays && $Hrs -le $maxHrs ]]
 do
         empCheck=$((RANDOM %3))
-        case $empCheck in
-                $isFullTime)
-                        empHrs=8;;
-                $isPartTime)
-                        empHrs=4;;
-                *)
-                        empHrs=0;;
-        esac
+        empHrs="$( wrkHrs $(($empCheck)) )"
         day=$(($day+1))
         Hrs=$(($Hrs+$empHrs))
         salary=$(($empRatePerHr*$empHrs))
